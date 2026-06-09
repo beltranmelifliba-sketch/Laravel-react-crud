@@ -25,7 +25,7 @@ A CRUD web application built with Laravel 12 and React, featuring a REST API bac
 ## Setup Instructions
 
 ### 1. Clone the repository
-git clone https://github.com/allenbravo/laravel-crud.git
+git clone 
 cd laravel-crud
 
 ### 2. Install PHP dependencies
