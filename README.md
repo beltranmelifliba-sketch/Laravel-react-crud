@@ -59,18 +59,3 @@ npm run dev
 ### 9. Open in browser
 http://localhost:8000
 
-## API Endpoints
-
-### Feature Categories
-- GET /api/feature-categories
-- POST /api/feature-categories
-- GET /api/feature-categories/{id}
-- PUT /api/feature-categories/{id}
-- DELETE /api/feature-categories/{id}
-
-### Features
-- GET /api/features
-- POST /api/features
-- GET /api/features/{id}
-- PUT /api/features/{id}
-- DELETE /api/features/{id}
