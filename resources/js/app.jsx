@@ -82,7 +82,7 @@ function App() {
       </nav>
 
       <div className={page !== 'home' ? 'pt-32 max-w-6xl mx-auto p-8' : ''}>
-        {page === 'home' && <Home />}
+        {page === 'home' && <Home onViewFeature={handleViewFeature} />}
 
         {page === 'features' && (
           <FeatureListPage

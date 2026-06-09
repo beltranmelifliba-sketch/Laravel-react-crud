@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getFeatures } from '../api/featureApi'
 
-export default function Home() {
+export default function Home({ onViewFeature }) {
   const [features, setFeatures] = useState([])
 
   useEffect(() => {
@@ -14,6 +14,12 @@ export default function Home() {
       setFeatures(res.data || [])
     } catch (error) {
       console.error('Failed to load features:', error)
+    }
+  }
+
+  const handleFeatureClick = (id) => {
+    if (onViewFeature) {
+      onViewFeature(id)
     }
   }
 
@@ -102,43 +108,9 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-8 relative z-10 w-full mt-10">
-           <h1 className="text-3xl font-bold text-white mb-8">Our Features</h1>
+      
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-           
-            {features.length > 0 ? (
-              features.map((feature) => {
-                const imageUrl = getImageUrl(feature)
-                return (
-                  <div key={feature.id} className="relative text-center transition-all duration-300 hover:-translate-y-2">
-                    <a href="#" className="block relative">
-                      {imageUrl ? (
-                        <img 
-                          src={imageUrl}
-                          alt={feature.title} 
-                          className="w-full h-80 object-cover rounded-lg shadow-lg" 
-                        />
-                      ) : (
-                        <div className="w-full h-80 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
-                          <span className="text-gray-500">No Image</span>
-                        </div>
-                      )}
-                      <div className="absolute bottom-0 left-0 w-full pb-3 px-4">
-                        <h3 className="text-2xl font-semibold text-white mb-2">
-                          <span className="hover:text-blue-400 transition-colors">{feature.title}</span>
-                        </h3>
-                        {feature.description && (
-                          <p className="text-white text-sm opacity-90 line-clamp-2">
-                            {feature.description}
-                          </p>
-                        )}
-                      </div>
-                    </a>
-                  </div>
-                )
-              })
-            ) : (
-              <>
-                <div className="relative text-center transition-all duration-300 hover:-translate-y-2">
+                 <div className="relative text-center transition-all duration-300 hover:-translate-y-2">
                   <a href="#" className="block relative">
                     <img 
                       src="/assets/datasec.jpg" 
@@ -182,11 +154,66 @@ export default function Home() {
                     </div>
                   </a>
                 </div>
-              </>
+         
+          </div>
+        </div>
+      </div>
+
+
+
+
+<h1 className="text-3xl font-bold text-black mb-8 text-center">
+  Our Features
+</h1>
+      <div className="container mx-auto px-8 relative z-10 w-full mt-10 bg-gray-100">
+         
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+     
+           {features.length > 0 ? (
+  features.map((feature) => {
+    const imageUrl = getImageUrl(feature)
+
+    return (
+      <div
+        key={feature.id}
+        className="relative text-center transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+        onClick={() => handleFeatureClick(feature.id)}
+      >
+        <div className="block relative">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={feature.title}
+              className="w-full h-80 object-cover rounded-lg shadow-lg text"
+            />
+          ) : (
+            <div className="w-full h-80 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+              <span className="text-gray-500">No Image</span>
+            </div>
+          )}
+
+          <div className="absolute bottom-0 left-0 w-full pb-3 px-4">
+         <h3 className="text-2xl font-semibold text-white mb-2 bg-black bg-opacity-40 p-2 rounded">
+              <span className="text-white transition-colors background-white">
+                {feature.title}
+              </span>
+            </h3>
+            {feature.description && (
+              <p className="text-white text-sm opacity-90 line-clamp-2 bg-black bg-opacity-40 p-2 rounded">
+                {feature.description}
+              </p>
             )}
           </div>
         </div>
       </div>
+    )
+  })
+) : (
+  <p className="text-center text-gray-500">No features found.</p>
+)}
+</div>
+</div>
+
 
       {/* ================= YEARS OF EXPERIENCE ================= */}
       <div className="relative w-full py-28">
@@ -517,3 +544,4 @@ export default function Home() {
     </div>
   )
 }
+ 
