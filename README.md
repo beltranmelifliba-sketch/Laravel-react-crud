@@ -23,10 +23,11 @@ A CRUD web application built with Laravel 12 and React, featuring a REST API bac
 - XAMPP or Laragon
 
 ## Setup Instructions
+git clone https://github.com/beltranmelifliba-sketch/Laravel-react-crud.git
 
 ### 1. Clone the repository
 git clone 
-cd laravel-crud
+cd laravel-react-crud
 
 ### 2. Install PHP dependencies
 composer install
