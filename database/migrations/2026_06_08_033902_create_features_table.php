@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('feature_category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('feature_category_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();

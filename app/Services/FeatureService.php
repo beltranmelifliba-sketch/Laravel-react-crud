@@ -20,24 +20,43 @@ class FeatureService
 
     public function create(array $data)
     {
-        $data['slug'] = Str::slug($data['title']);
+        // SLUG GENERATION SAFE
+        $slug = Str::slug($data['title']);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Feature::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
+        $data['slug'] = $slug;
+
         return Feature::create($data);
     }
 
     public function update(int $id, array $data)
     {
         $feature = Feature::findOrFail($id);
-        $data['slug'] = Str::slug($data['title']);
+
+        // ONLY regenerate slug if title exists
+        if (isset($data['title'])) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+
         $feature->update($data);
+
         return $feature->load('category');
     }
 
     public function delete(int $id)
     {
         $feature = Feature::findOrFail($id);
+
+        // delete image safely
         if ($feature->image) {
             Storage::disk('public')->delete($feature->image);
         }
+
         $feature->delete();
     }
 }

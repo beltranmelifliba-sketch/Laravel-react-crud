@@ -11,6 +11,6 @@ class Feature extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(FeatureCategory::class);
+        return $this->belongsTo(FeatureCategory::class, 'feature_category_id');
     }
 }
